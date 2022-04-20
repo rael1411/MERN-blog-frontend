@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import gfm from "remark-gfm"
 import AuthProvider from "../context/AuthProvider"
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import axios from "../api/axios";
 import SureCheck from "./SureCheck";
 
 export default function Post(props) {
@@ -22,12 +23,11 @@ export default function Post(props) {
     navigate("/edit/" + props.post._id)
   }
   const link =
-    "http://localhost:5000/posts/" + props.post._id + "/comment-count/";
+    "/posts/" + props.post._id + "/comment-count/";
   React.useEffect(() => {
-    fetch(link)
-      .then((response) => response.json())
-      .then((data) => setCommentCount(data))
-      .then((data) => setLoading(false));
+    axios.get(link)
+      .then((res) => setCommentCount(res.data))
+      .then(() => setLoading(false));
   }, [link]);
   //splitting text into array to display new lines properly
   const textArray = props.post.text.split("\n");

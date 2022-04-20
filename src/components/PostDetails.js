@@ -6,6 +6,8 @@ import Comment from "./Comment";
 import CommentForm from "./CommentForm";
 import { useParams } from "react-router-dom";
 import AuthProvider from "../context/AuthProvider"
+import axios from "../api/axios";
+
 
 export default function PostDetails() {
   const [postData, setPostData] = React.useState({});
@@ -19,18 +21,16 @@ export default function PostDetails() {
   });
   const { auth } = React.useContext(AuthProvider);
   const { id } = useParams();
-  const postLink = "http://localhost:5000/posts/" + id;
+  const postLink = "/posts/" + id;
   const commentsLink = postLink + "/comments/";
 
   //GET POST AND COMMENTS FROM API
   React.useEffect(() => {
-    fetch(postLink)
-      .then((response) => response.json())
-      .then((data) => setPostData(data))
-      .then(() => setPostLoading(false));
-    fetch(commentsLink)
-      .then((response) => response.json())
-      .then((data) => setCommentsData(data))
+    axios.get(postLink)
+      .then((res) => setPostData(res.data))
+      .then(() => setPostLoading(false))
+    axios.get(commentsLink)
+      .then((res) => setCommentsData(res.data))
       .then(() => setCommentLoading(false));
   }, [commentsLink, postLink]);
   const comments = (

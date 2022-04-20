@@ -1,5 +1,6 @@
 import React from "react";
 import Post from "./Post";
+import axios from "../api/axios";
 
 export default function Main(props) {
   const [postsData, setPostsData] = React.useState([])
@@ -7,9 +8,8 @@ export default function Main(props) {
 
   //FETCH POSTS AND ADD THEM TO STATE
   React.useEffect(() => {
-    fetch("http://localhost:5000/posts")
-        .then(response => response.json())
-        .then(data => setPostsData(data))
+    axios.get("/posts")
+        .then(res => setPostsData(res.data))
         .then(() => setLoading(false))
   },[setPostsData]);
   let loadingSpinner =<div className="loader">Loading...</div>
