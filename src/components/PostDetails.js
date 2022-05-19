@@ -64,7 +64,7 @@ export default function PostDetails() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const link = "http://localhost:5000/posts/" + id + "/comments/";
+      const link = "https://guarded-bayou-20255.herokuapp.com/posts/" + id + "/comments/";
       let res = await fetch(link, {
         method: "POST",
         mode: "cors",

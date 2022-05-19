@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import PostDetails from "./components/PostDetails";
 import Login from "./components/Login";
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import Unauthorized from "./components/Unauthorized";
 import RequireAuth from "./components/RequireAuth";
@@ -15,7 +15,7 @@ import EditPost from "./components/EditPost";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AuthProvider>
         <Routes>
           <Route element={<PersistLogin />}>
@@ -33,7 +33,7 @@ function App() {
           </Route>
         </Routes>
       </AuthProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
